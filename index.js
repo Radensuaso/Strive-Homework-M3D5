@@ -1,9 +1,27 @@
 const log = console.log
+var usersArray = []
 
 window.onload = () => {
   getUsers()
   const inputField = document.querySelector("#user-search-value")
   inputField.addEventListener("keyup", searchUsers)
+}
+
+const getUsers = async function () {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users")
+  const users = await response.json()
+  const tBody = document.querySelector("#users-table-container table tbody")
+  
+  users.forEach( user => {
+    let tempUser = {
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      selected: false
+    }
+    usersArray.push(tempUser)
+    tBody.innerHTML += generateTr(user)
+  })
 }
 
 const generateTr = function (user) {
@@ -24,35 +42,23 @@ const generateTr = function (user) {
           </tr>`
 }
 
-const getUsers = async function () {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users")
-  const users = await response.json()
-  console.log(users)
-
-  //get Table Body from the Dom
-  const tBody = document.querySelector("#users-table-container table tbody")
-
-  //Create row for each element
-  users.forEach( user => {
-    console.log(user)
-    tBody.innerHTML += generateTr(user)
-  })
-  
-  searchUsers()
+function appendSelectValues() {
+  let users = document.getElementsByClassName("form-select")
+  for (let person in usersArray){
+    let userSelected = users[person].options[users[person].selectedIndex].value
+    usersArray[person].selected = userSelected
+  }
 }
-
-// const searchUsers = function () {
-//   let userSearch = document.getElementsByClassName("user-select")[5]
-//   console.log(userSearch)
-// }
 
 const searchUsers = function () {
-  let searchValue = this.value
-  let users = document.getElementsByClassName("user-select")
-  log(users[0].value)
+  let query = this.value
+  log(query)
+  appendSelectValues()
   
-  let users2 = document.getElementsByTagName("tr")
-  log(users2)
-  log(users)
+  log(usersArray)
   
+  // for (let user in usersArray){
+  //   if (query == usersArray[user])
+  // }
 }
+
