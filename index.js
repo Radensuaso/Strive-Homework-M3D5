@@ -32,35 +32,31 @@ const getUsers = async function () {
 
   //Create row for each element
   users.forEach((user) => {
-    console.log(user)
     tBody.innerHTML += generateTr(user)
   })
 
   //add event listener to input text
   const inputField = document.querySelector("#user-search-value")
-  inputField.addEventListener("keyup", searchUsers)
+  inputField.addEventListener("keyup", (event) => searchUsers(event, users))
 }
 
-// const searchUsers = function () {
-//   let userSearch = document.getElementsByClassName("user-select")[5]
-//   console.log(userSearch)
-// }
+const searchUsers = function (event, users) {
+  const tBody = document.querySelector("tbody")
+  tBody.innerHTML = ``
+  let searchValue = event.currentTarget.value.toLowerCase()
+  users.forEach((user) => {
+    const name = user.name.toLowerCase()
+    const userName = user.username.toLowerCase()
+    const email = user.email.toLowerCase()
 
-const searchUsers = function () {
-  let searchValue = this.value
-  //let users = document.getElementsByClassName("user-select")
-  //log(users[0].value)
-  let trArray = document.getElementsByTagName("tr")
-  console.log(trArray)
-  const arrayName = []
-  ;[...trArray].forEach((tr) => {
-    const name = tr.querySelector(".user-name")
-    const userName = tr.querySelector(".user-username")
-    const email = tr.querySelector(".user-email")
-    arrayName.push(name)
-
-    console.log(name)
+    if (
+      name.includes(searchValue) ||
+      userName.includes(searchValue) ||
+      email.includes(searchValue)
+    ) {
+      tBody.innerHTML += generateTr(user)
+    } else if (searchValue === ``) {
+      tBody.innerHTML += generateTr(user)
+    }
   })
-
-  //log(users)
 }
