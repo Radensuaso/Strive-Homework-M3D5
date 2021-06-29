@@ -3,7 +3,8 @@ window.onload = () => {
 }
 
 const generateTr = function (user) {
-  return `<th scope="row">${user.id}</th>
+  return `<tr>
+            <th scope="row">${user.id}</th>
             <td>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -19,7 +20,8 @@ const generateTr = function (user) {
             <td>${user.address.city}</td>
             <td>${user.phone}</td>
             <td>${user.company.name}</td>
-            <td>${user.website}</td>`
+            <td>${user.website}</td>
+        </tr>`
 }
 
 const getUsers = async function () {
