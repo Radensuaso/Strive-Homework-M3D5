@@ -4,6 +4,7 @@ PAIR PROGRAMMING EXERCISE.
 1 DRIVER, 1 NAVIGATOR.
 1 Exercise each. Use GitHub to share the code.
 Less exercise, more complicated.
+
 Ex1) Get and display, using async / await, the users from: https://jsonplaceholder.typicode.com/users
 Ex2) Create a dropdown (<select>) that allows the user to select between name, username and email.
 Create then a filter. When the user types in something, you should filter the user based on the input and on the value of the select.
